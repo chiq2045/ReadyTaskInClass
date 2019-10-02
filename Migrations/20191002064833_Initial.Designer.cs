@@ -10,7 +10,7 @@ using ReadyTask.Data;
 namespace ReadyTask.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191001173642_Initial")]
+    [Migration("20191002064833_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,6 +187,25 @@ namespace ReadyTask.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("ReadyTask.Models.TaskItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AssignedUserId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedUserId");
+
+                    b.ToTable("TaskItems");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("ReadyTask.Models.ReadyTaskUserRole")
@@ -230,6 +249,13 @@ namespace ReadyTask.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ReadyTask.Models.TaskItem", b =>
+                {
+                    b.HasOne("ReadyTask.Models.ReadyTaskUser", "AssignedUser")
+                        .WithMany("AssignedTaskItems")
+                        .HasForeignKey("AssignedUserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -157,6 +157,27 @@ namespace ReadyTask.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TaskItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    AssignedUserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskItems_AspNetUsers_AssignedUserId",
+                        column: x => x.AssignedUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -195,6 +216,11 @@ namespace ReadyTask.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskItems_AssignedUserId",
+                table: "TaskItems",
+                column: "AssignedUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -213,6 +239,9 @@ namespace ReadyTask.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TaskItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
