@@ -6,10 +6,21 @@
 {
     foreach (TaskItem task in Model)
     {
-        <div class="panel">
-            <div class="panel-title"></div>
-            <div class="panel-body"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @task.Title
+            </div>
+            <div class="panel-body">
+                @task.Description
+                @if (task.AssignedUserId != null)
+                {
+                    @task.AssignedUser.FirstName
+                }
+
+
+            </div>
         </div>
+
     }
 } else
 {

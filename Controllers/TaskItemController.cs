@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReadyTask.Data;
 using ReadyTask.Models;
 
@@ -19,7 +20,7 @@ namespace ReadyTask.Controllers
         // GET: TaskItem
         public ActionResult Index()
         {
-            List<TaskItem> allTasks = _context.TaskItems.ToList();
+            List<TaskItem> allTasks = _context.TaskItems.Include(t => t.AssignedUser).ToList();
             return View(allTasks);
         }
 
