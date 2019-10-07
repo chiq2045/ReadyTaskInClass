@@ -27,8 +27,8 @@ namespace ReadyTask.Controllers
         // GET: TaskItem/Details/5
         public ActionResult Details(int id)
         {
-            TaskItem task = _context.TaskItems.FirstOrDefault();
-            return View();
+            TaskItem task = _context.TaskItems.Include(t => t.AssignedUser).FirstOrDefault(t => t.Id == id);
+            return View(task);
         }
 
         // GET: TaskItem/Create

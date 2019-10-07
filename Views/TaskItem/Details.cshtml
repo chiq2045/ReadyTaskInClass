@@ -1,0 +1,29 @@
+﻿@model TaskItem
+
+<h1>Task</h1>
+<hr />
+
+<dl class="dl-horizontal">
+    <dt>
+        Title
+    </dt>
+    <dd>
+        @Model.Title
+    </dd>
+    <dt>
+        Description
+    </dt>
+    <dd>
+        @Model.Description
+    </dd>
+    @if (Model.AssignedUser != null)
+    {
+        <dt>
+            Assigned User
+        </dt>
+        <dd>
+            @Model.AssignedUser.FirstName @Model.AssignedUser.LastName
+        </dd>
+    }
+
+</dl>
