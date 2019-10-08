@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReadyTask.Data;
 using ReadyTask.Models;
+using ReadyTask.ViewModels;
 
 namespace ReadyTask.Controllers
 {
@@ -19,37 +21,37 @@ namespace ReadyTask.Controllers
         // GET: TaskItem
         public ActionResult Index()
         {
-            List<TaskItem> allTasks = _context.TaskItems.ToList();
+            List<TaskItem> allTasks = _context.TaskItems.Include(t => t.AssignedUser).ToList();
             return View(allTasks);
         }
 
         // GET: TaskItem/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            TaskItem task = _context.TaskItems.Include(t => t.AssignedUser).FirstOrDefault(t => t.Id == id);
+            return View(task);
         }
 
         // GET: TaskItem/Create
         public ActionResult Create()
         {
-            return View();
+            TaskItemCreate viewModel = new TaskItemCreate();
+            viewModel.ReadyTaskUsers = _context.Users.ToList();
+            return View(viewModel);
         }
 
         // POST: TaskItem/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([Bind("Id,Title,Description,AssignedUserId")] TaskItem task)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
+                _context.Add(task);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(task);
         }
 
         // GET: TaskItem/Edit/5

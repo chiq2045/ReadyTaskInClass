@@ -13,6 +13,6 @@ namespace ReadyTask.Models
         public string FirstName { get; set; }
         [PersonalData, StringLength(20)]
         public string LastName { get; set; }
-        public List<TaskItem> AssignedTaskItems { get; set; }
+        public List<TaskItem> AssignedTasks { get; set; }
     }
 }
