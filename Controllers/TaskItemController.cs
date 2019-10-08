@@ -57,24 +57,18 @@ namespace ReadyTask.Controllers
         // GET: TaskItem/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            TaskItemCreate viewModel = new TaskItemCreate();
+            viewModel.TaskItem = _context.TaskItems.FirstOrDefault(t => t.Id == id);
+            viewModel.ReadyTaskUsers = _context.Users.ToList();
+            return View(viewModel);
         }
 
         // POST: TaskItem/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit([Bind("Id,Title,Description,AssignedUserId")] TaskItem task)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //todo
         }
 
         // GET: TaskItem/Delete/5

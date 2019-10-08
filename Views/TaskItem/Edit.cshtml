@@ -2,10 +2,7 @@
 @model TaskItemCreate
 
 @{
-
-
-
-    <h2>Create</h2>
+    <h2>Edit</h2>
 
     <h4>Task</h4>
 
@@ -24,7 +21,15 @@
                 <option value="">None</option>
                 @foreach (ReadyTaskUser user in Model.ReadyTaskUsers)
                 {
-                    <option value="@(user.Id)">@user.FirstName @user.LastName</option>
+                    if (Model.TaskItem.AssignedUserId == user.Id)
+                    {
+                        <option selected value="@(user.Id)">@user.FirstName @user.LastName</option>
+                    }
+                    else
+                    {
+                        <option value="@(user.Id)">@user.FirstName @user.LastName</option>
+                    }
+
                 }
             </select>
         </div>
