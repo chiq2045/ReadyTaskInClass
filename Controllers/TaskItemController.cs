@@ -68,6 +68,24 @@ namespace ReadyTask.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind("Id,Title,Description,AssignedUserId")] TaskItem task)
         {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(task);
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TaskExists(task.Id))
+                    {
+                        return NotFound();
+                    }
+                    throw;
+                }
+
+            }
+                return View(task);
             //todo
         }
 
@@ -92,6 +110,10 @@ namespace ReadyTask.Controllers
             {
                 return View();
             }
+        }
+        private bool TaskExists(int id)
+        {
+            return _context.TaskItems.Any(t=> t.Id == id);
         }
     }
 }
