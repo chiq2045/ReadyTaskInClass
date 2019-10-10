@@ -10,14 +10,14 @@ using ReadyTask.Data;
 namespace ReadyTask.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191002064833_Initial")]
-    partial class Initial
+    [Migration("20191010083302_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -160,6 +160,10 @@ namespace ReadyTask.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new { Id = 100, AccessFailedCount = 0, ConcurrencyStamp = "c82ae0cc-42ab-4144-848f-fd9c92eb8a8f", Email = "test@test.com", EmailConfirmed = true, FirstName = "John", LastName = "Doe", LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEJJoz5jR03DJM5svaiC7VfWLScdyVlfJzblNhV7C9O9fYA3QhuQvGD0tYq7cajtf5g==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "test@test.com" }
+                    );
                 });
 
             modelBuilder.Entity("ReadyTask.Models.ReadyTaskUserRole", b =>
@@ -204,6 +208,12 @@ namespace ReadyTask.Migrations
                     b.HasIndex("AssignedUserId");
 
                     b.ToTable("TaskItems");
+
+                    b.HasData(
+                        new { Id = 101, Description = "Task Description", Title = "Test Task 1" },
+                        new { Id = 102, Description = "Task Description", Title = "Test Task 2" },
+                        new { Id = 103, AssignedUserId = 100, Description = "Task Description", Title = "Test Task 3" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -254,7 +264,7 @@ namespace ReadyTask.Migrations
             modelBuilder.Entity("ReadyTask.Models.TaskItem", b =>
                 {
                     b.HasOne("ReadyTask.Models.ReadyTaskUser", "AssignedUser")
-                        .WithMany("AssignedTaskItems")
+                        .WithMany("AssignedTasks")
                         .HasForeignKey("AssignedUserId");
                 });
 #pragma warning restore 612, 618
