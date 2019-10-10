@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReadyTask.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -181,22 +181,22 @@ namespace ReadyTask.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 100, 0, "e29de235-25d8-4bcf-b4f1-d39bf37ae6c7", "test@test.com", true, "John", "Doe", false, null, "TEST@TEST.COM", "TEST@TEST.COM", "AQAAAAEAACcQAAAAEG64M/W0nNBNO5rSfWUikyUVq4jTgitXgYlqxLHlcSesSh3odkEOx0aVmnGFqbXM9A==", null, false, "", false, "test@test.com" });
+                values: new object[] { 100, 0, "e1b06a7b-47b6-40a9-8dd4-99bbc506a757", "test@test.com", true, "John", "Doe", false, null, "TEST@TEST.COM", "TEST@TEST.COM", "AQAAAAEAACcQAAAAEMxxUIAK5P838pkbx+Km6hGlFZWHIjvBKGI3v6V3RCc0jds1NzeSyJtQlPnbxl1KCw==", null, false, "", false, "test@test.com" });
 
             migrationBuilder.InsertData(
                 table: "TaskItems",
                 columns: new[] { "Id", "AssignedUserId", "Description", "Title" },
-                values: new object[] { 101, null, "Task Description", "Test Task 1" });
+                values: new object[] { 100, null, "Description for Task 1", "Test Task 1" });
 
             migrationBuilder.InsertData(
                 table: "TaskItems",
                 columns: new[] { "Id", "AssignedUserId", "Description", "Title" },
-                values: new object[] { 102, null, "Task Description", "Test Task 2" });
+                values: new object[] { 101, null, "Description for Task 2", "Test Task 2" });
 
             migrationBuilder.InsertData(
                 table: "TaskItems",
                 columns: new[] { "Id", "AssignedUserId", "Description", "Title" },
-                values: new object[] { 103, 100, "Task Description", "Test Task 3" });
+                values: new object[] { 102, 100, "Description for Task 3", "Test Task 3" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

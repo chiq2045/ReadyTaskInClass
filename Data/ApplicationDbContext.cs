@@ -18,48 +18,52 @@ namespace ReadyTask.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //Seeding Users
             var hasher = new PasswordHasher<ReadyTaskUser>();
-            ReadyTaskUser seedUser = new ReadyTaskUser
-            {
-                Id = 100,
-                UserName = "test@test.com",
-                Email = "test@test.com",
-                NormalizedEmail = "test@test.com".ToUpper(),
-                NormalizedUserName = "test@test.com".ToUpper(),
-                FirstName = "John",
-                LastName = "Doe",
-                TwoFactorEnabled = false,
-                EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "password"),
-                SecurityStamp = string.Empty
-            };
-            builder.Entity<ReadyTaskUser>().HasData(seedUser);
+            builder.Entity<ReadyTaskUser>().HasData(
+                new ReadyTaskUser
+                {
+                    Id = 100,
+                    UserName = "test@test.com",
+                    Email = "test@test.com",
+                    NormalizedEmail = "test@test.com".ToUpper(),
+                    NormalizedUserName = "test@test.com".ToUpper(),
+                    FirstName = "John",
+                    LastName = "Doe",
+                    TwoFactorEnabled = false,
+                    EmailConfirmed = true,
+                    SecurityStamp = string.Empty,
+                    PasswordHash = hasher.HashPassword(null, "password")
+                }
+                );
+
+            //Seeding Task Items
             builder.Entity<TaskItem>().HasData(
                 new TaskItem[]
                 {
                     new TaskItem
                     {
-                        Id = 101,
+                        Id = 100,
                         Title = "Test Task 1",
-                        Description = "Task Description",
+                        Description  = "Description for Task 1",
+                        AssignedUserId = null
+                    },
+                    new TaskItem
+                    {
+                        Id = 101,
+                        Title = "Test Task 2",
+                        Description  = "Description for Task 2",
                         AssignedUserId = null
                     },
                     new TaskItem
                     {
                         Id = 102,
-                        Title = "Test Task 2",
-                        Description = "Task Description",
-                        AssignedUserId = null
-                    },
-                    new TaskItem
-                    {
-                        Id = 103,
                         Title = "Test Task 3",
-                        Description = "Task Description",
+                        Description  = "Description for Task 3",
                         AssignedUserId = 100
-                    }
+                    },
                 }
-
                 );
         }
     }

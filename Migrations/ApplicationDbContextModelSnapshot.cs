@@ -15,7 +15,7 @@ namespace ReadyTask.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -160,7 +160,7 @@ namespace ReadyTask.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = 100, AccessFailedCount = 0, ConcurrencyStamp = "c82ae0cc-42ab-4144-848f-fd9c92eb8a8f", Email = "test@test.com", EmailConfirmed = true, FirstName = "John", LastName = "Doe", LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEJJoz5jR03DJM5svaiC7VfWLScdyVlfJzblNhV7C9O9fYA3QhuQvGD0tYq7cajtf5g==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "test@test.com" }
+                        new { Id = 100, AccessFailedCount = 0, ConcurrencyStamp = "e1b06a7b-47b6-40a9-8dd4-99bbc506a757", Email = "test@test.com", EmailConfirmed = true, FirstName = "John", LastName = "Doe", LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TEST@TEST.COM", PasswordHash = "AQAAAAEAACcQAAAAEMxxUIAK5P838pkbx+Km6hGlFZWHIjvBKGI3v6V3RCc0jds1NzeSyJtQlPnbxl1KCw==", PhoneNumberConfirmed = false, SecurityStamp = "", TwoFactorEnabled = false, UserName = "test@test.com" }
                     );
                 });
 
@@ -208,9 +208,9 @@ namespace ReadyTask.Migrations
                     b.ToTable("TaskItems");
 
                     b.HasData(
-                        new { Id = 101, Description = "Task Description", Title = "Test Task 1" },
-                        new { Id = 102, Description = "Task Description", Title = "Test Task 2" },
-                        new { Id = 103, AssignedUserId = 100, Description = "Task Description", Title = "Test Task 3" }
+                        new { Id = 100, Description = "Description for Task 1", Title = "Test Task 1" },
+                        new { Id = 101, Description = "Description for Task 2", Title = "Test Task 2" },
+                        new { Id = 102, AssignedUserId = 100, Description = "Description for Task 3", Title = "Test Task 3" }
                     );
                 });
 

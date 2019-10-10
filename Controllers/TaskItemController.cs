@@ -58,8 +58,8 @@ namespace ReadyTask.Controllers
         public ActionResult Edit(int id)
         {
             TaskItemCreate viewModel = new TaskItemCreate();
-            viewModel.TaskItem = _context.TaskItems.FirstOrDefault(t => t.Id == id);
             viewModel.ReadyTaskUsers = _context.Users.ToList();
+            viewModel.TaskItem = _context.TaskItems.Find(id);
             return View(viewModel);
         }
 
@@ -70,23 +70,14 @@ namespace ReadyTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(task);
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TaskExists(task.Id))
-                    {
-                        return NotFound();
-                    }
-                    throw;
-                }
-
+                _context.Update(task);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-                return View(task);
-            //todo
+            TaskItemCreate viewModel = new TaskItemCreate();
+            viewModel.TaskItem = task;
+            viewModel.ReadyTaskUsers = _context.Users.ToList();
+            return View(viewModel);
         }
 
         // GET: TaskItem/Delete/5
